@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   root 'pages#home'
   get 'about', to: 'pages#about'
+
+  resources :articles #gave a lot of paths for CRUD for the table in db, can check with rails routes
 end
