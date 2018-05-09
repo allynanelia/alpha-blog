@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_action :set_article, only: [:edit, :update, :show, :destroy] #before these actions do anything, access method set_article
 
   def index
     @articles = Article.all
@@ -9,7 +10,6 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article =Article.find(params[:id]) # param in url
   end
 
   def create #action, handles form submission from new page
@@ -26,8 +26,6 @@ class ArticlesController < ApplicationController
   end
 
   def update #action that handles form from edit page
-    @article = Article.find(params[:id])
-
     if @article.update(article_params) #params is an instance of Parameter in controller; looks like a hash
       flash[:notice] = "Article was successfully edited"
       redirect_to article_path(@article) #redirecting to 'show' page
@@ -37,10 +35,17 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+  end
+
+  def destroy
+    @article.destroy
   end
 
   private
+    def set_article
+      @article = Article.find(params[:id]) # param in url
+    end
+
     def article_params #to whitelist values being passed, from params, will allow these attributes
       params.require(:article).permit(:title, :description) #article is the key, title and description are values
     end
