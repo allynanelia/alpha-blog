@@ -15,6 +15,7 @@ class ArticlesController < ApplicationController
   def create #action, handles form submission from new page
     #render plain: params[:article].inspect #show what happens
     @article = Article.new(article_params) #need to create new article from the params passed in, uses a method
+    @article.user = User.first
 
     if @article.save
       flash[:notice] = "Article was successfully created." #only for one cycle
