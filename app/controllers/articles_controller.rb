@@ -46,6 +46,7 @@ class ArticlesController < ApplicationController
       @article = Article.find(params[:id]) # param in url
     end
 
+    #this validation is for form inputs
     def article_params #to whitelist values being passed, from params, will allow these attributes
       params.require(:article).permit(:title, :description) #article is the key, title and description are values
     end
